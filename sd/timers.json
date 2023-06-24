@@ -1,0 +1,23 @@
+{
+    "morning": {
+        "active": true,
+        "timer": "18:00",
+        "days": ["mon", "thur", "frid"],
+        "shop": true,
+        "shop_bright": 45
+    },
+
+    "afternoon": {
+        "active": true,
+        "timer": "20:00",
+        "days": ["sun"],
+        "cieling": true,
+        "shop": true
+    },
+
+    "something": {
+        "active": false,
+        "timer": "23:30",
+        "days": ["wed", "tue"]
+    }
+}

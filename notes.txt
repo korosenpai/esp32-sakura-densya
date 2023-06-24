@@ -1,0 +1,7 @@
+light pulse: https://thepihut.com/blogs/raspberry-pi-tutorials/maker-advent-calendar-day-4-amazing-analogue
+
+
+
+timer.json
+if cieling or shop not present -> same as "cieling": false
+if cieling/shop_bright not present -> if light on switch to 100%
