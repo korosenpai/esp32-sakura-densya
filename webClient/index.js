@@ -1,31 +1,16 @@
-var textArea = document.getElementById("msg")
-let button = document.getElementById("btn")
-let timeoutButton = 5000 // 5s
+let triggerAll = document.getElementById("all")
 
-let ip = document.getElementById("ip")
-
-function sendData() {
-    if (!textArea.value) return
-    
-    button.disabled = true
-    setTimeout(() => button.disabled = false, timeoutButton)
-    
+function sendData(data) {    
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://192.168.4.1');
+    xhr.open('POST', 'http://192.168.1.240');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
         console.log(xhr.responseText);
-        // Do something with the response data
-        ip.innerText = JSON.parse(xhr.responseText).ip
-        
+        // Do something with the response data        
     }
     };
-    const data = { "msg": textArea.value };
     xhr.send(JSON.stringify(data));
 
-    textArea.value = ""
-
 }
-

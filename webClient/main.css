@@ -22,20 +22,35 @@ body {
     align-items: center;
 }
 
+#all {
+    width: 50%;
+    padding: 20%;
+    margin: 10%;
+    border-radius: 50%;
 
-.ceiling, .shop {
+    cursor: pointer;
+
+    background-color: #99B898;
+    border: solid white;
+    color: white;
+}
+
+.singular {
     display: flex;
-    margin: 3%;
 }
 
-button {
-    margin: 1%;
+.singular > button {
+    margin: 5vw;
+    width: 20vw;
+    height: 10vw;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background-color: white;
+    border: solid #99B898;
+    color: black;
 }
-
-
-
-
-
-
 
 

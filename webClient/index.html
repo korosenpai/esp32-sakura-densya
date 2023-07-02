@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./main.css">
+    <title>sakura densya controller</title>
+    <!-- <link rel="stylesheet" href="./main.css"> -->
 </head>
 <style>
     /* inject css */
 </style>
 <body>
-    <div class="ceiling">
-        <p>ceiling</p>
-        <button>turn on/off</button>
-    </div>
-    <div class="shop">
-        <p>shop</p>
-        <button>turn on/off</button>
+    <button id="all" onclick="sendData({ceiling: true, shop: true})">big ass button</button>
+
+    <div class="singular">
+        <button class="ceiling" onclick="sendData({ceiling: true})">ceiling</button>
+        <button class="shop" onclick="sendData({shop: true})">shop</button>
     </div>
 
     <!-- <script src="./index.js"></script> -->
     <!-- inject js -->   
 </body>
 </html>
+
+
+
+
+
