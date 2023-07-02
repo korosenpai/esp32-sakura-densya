@@ -1,4 +1,4 @@
-def connect():
+def connect_to_wifi():
     import network
     from utime import sleep
 
@@ -16,20 +16,23 @@ def connect():
     # get available networks
     networks = station.scan()
     available_networks = [network[0].decode() for network in networks]
-    print(available_networks)
+    print("available networks:", available_networks)
 
 
     for wifi in WIFI_DATA:
         if wifi not in available_networks: continue
         
-        print("connecting to ", wifi)
+        print(f"connecting to '{wifi}'... ", end = "")
         
         # Connect to Wi-Fi
         try:
             station.connect(wifi, WIFI_DATA[wifi])
             # Wait for the Wi-Fi connection
             while not station.isconnected():
-                sleep(0.1)
+                sleep(0.2)
+            
+            print("[V]")
+            print('IP address:', station.ifconfig()[0])
 
             break
 
@@ -38,7 +41,7 @@ def connect():
             if e.args[0] != "Wifi Internal Error":
                 raise e
             
-            print(f"cannot connect to '{wifi}'")
+            print(f"[X] \ncannot connect to '{wifi}'")
             station.disconnect()  # Disconnect before moving to the next network
             station.active(False)  # Disable Wi-Fi interface
             sleep(1)  # Give some time for cleanup and reinitialization
@@ -47,7 +50,7 @@ def connect():
     return station
         
 if __name__ == "__main__":
-    station = connect()
+    station = connect_to_wifi()
     
     import urequests
     response = urequests.get('http://192.168.1.161:8000/anime')
@@ -55,5 +58,6 @@ if __name__ == "__main__":
 
     station.disconnect()  # Disconnect before moving to the next network
     station.active(False)  # Disable Wi-Fi interface
+
 
 
