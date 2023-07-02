@@ -3,26 +3,26 @@
 def mount_sd(folder = "/sd"):
     import os
     from machine import Pin, SoftSPI
-    from utils.modules.sdcard import SDCard
+    from sdcard import SDCard
 
     """
     pin assignment
     vcc -> 5v
     gnd -> gnd
-    miso -> gpio 13
-    mosi -> gpio 12
-    sck -> gpio 14
-    cs -> gpio 25
+    cs -> g15
+    sck -> g4
+    mosi -> g17
+    miso -> g18
 
     """
 
     spisd = SoftSPI(
         -1,
-        miso = Pin(13),
-        mosi = Pin(12),
-        sck = Pin(14)
+        miso = Pin(18),
+        mosi = Pin(17),
+        sck = Pin(4)
     )
-    sd = SDCard(spisd, Pin(25))
+    sd = SDCard(spisd, Pin(15))
 
     vfs = os.VfsFat(sd)
     os.mount(vfs, folder)
@@ -32,4 +32,7 @@ def mount_sd(folder = "/sd"):
 
 if __name__ == "__main__":
     mount_sd()
+    
+    from os import listdir
+    print(listdir("/sd"))
 
