@@ -1,15 +1,17 @@
-from utils.connect_to_wifi import connect
+from utils.connect_to_wifi import connect_to_wifi
 from utils.create_web_page import create_web_page
 
 from json import loads
 
-station = connect()
+station = connect_to_wifi()
 
 # create socket
 import socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((station.ifconfig()[0], 80))
 s.listen(5) # max 5 socket connections // max possible should be 16
+
+print(station.ifconfig())
 
 starting_up = False
 while True:
