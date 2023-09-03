@@ -16,6 +16,12 @@ def connect_to_wifi():
     # get available networks
     networks = station.scan()
     available_networks = [network[0].decode() for network in networks]
+    while not available_networks:
+        print("no wifi found... \nretrying...")
+        networks = station.scan()
+        available_networks = [network[0].decode() for network in networks]
+        sleep(2)
+
     print("available networks:", available_networks)
 
 
