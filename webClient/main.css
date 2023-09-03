@@ -44,7 +44,7 @@ body {
     width: 20vw;
     height: 10vw;
 
-    border-radius: 8px;
+    border-radius: 1vh;
 
     cursor: pointer;
 
@@ -53,4 +53,38 @@ body {
     color: black;
 }
 
+.sliders {
+    display: flex;
+    margin-top: 5%;
+    
+}
 
+.sliders > input {
+    appearance: none;
+    -webkit-appearance: none;
+    
+    width: 50%;
+    height: 2vh;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 1;
+}
+
+.sliders > input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 7vw;
+    height: 7vw;
+    border-radius: 50%; 
+    background: #04AA6D;
+    cursor: pointer;
+}
+
+.sliders > input::-moz-range-thumb {
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+}

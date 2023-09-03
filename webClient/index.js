@@ -14,3 +14,18 @@ function sendData(data) {
     xhr.send(JSON.stringify(data));
 
 }
+
+var ceilingSlider = document.getElementById("ceiling-slider")
+var shopSlider = document.getElementById("shop-slider")
+var sliderSteps = 5
+
+function slider(id, val) {
+    if (val % sliderSteps === 0) {
+        let temp = {}
+        temp[id + "-brightness"] = parseInt(val)
+        console.log(temp)
+
+        sendData(temp)
+        
+    }
+}
