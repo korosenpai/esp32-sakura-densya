@@ -1,9 +1,8 @@
-def connect_to_wifi():
-    import network
-    from utime import sleep
+import network
+from utime import sleep
+import json
 
-    import json
-    from time import sleep
+def connect_to_wifi():
 
 
     with open("wifis.json", "r") as wififile:

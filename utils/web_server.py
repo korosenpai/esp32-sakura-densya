@@ -1,30 +1,15 @@
 print("\n") # separate logs from default messages of editor
 
 from machine import Pin, PWM
-import time
+from utime import sleep
 from json import dumps, loads
 import socket
 
 from utils.create_web_page import create_web_page
 from utils.connect_to_wifi import connect_to_wifi
 
-MAX_DUTY_CYCLE = 65535
 
-# Set up the LED pin with PWM
-ceiling = PWM(Pin(26))
-shop = PWM(Pin(33))
-
-# Set the PWM frequency
-ceiling.freq(1000)
-shop.freq(1000)
-# first turn off leds
-ceiling.duty_u16(0)
-shop.duty_u16(0)
-
-def web_server():
-
-    station = connect_to_wifi()
-
+def web_server(station, ceiling_led, shop_led):
 
     # create web socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,13 +19,13 @@ def web_server():
 
     # blink leds to signal its ready
     for _ in range(3):
-        ceiling.duty_u16(MAX_DUTY_CYCLE)
-        shop.duty_u16(MAX_DUTY_CYCLE)
-        time.sleep(0.5)
+        ceiling_led.set(100)
+        shop_led.set(100)
+        sleep(0.5)
 
-        ceiling.duty_u16(0)
-        shop.duty_u16(0)
-        time.sleep(0.5)
+        ceiling_led.set(0)
+        shop_led.set(0)
+        sleep(0.5)
 
 
     while True:
@@ -64,19 +49,15 @@ def web_server():
             print(data)
             
             if data.get("ceiling", False):
-                ceiling.duty_u16(
-                    abs(ceiling.duty_u16() - MAX_DUTY_CYCLE) if ceiling.duty_u16() in [0, MAX_DUTY_CYCLE] else 0
-                )
+                ceiling_led.toggle()
             if data.get("shop", False):
-                shop.duty_u16(
-                    abs(shop.duty_u16() - MAX_DUTY_CYCLE) if shop.duty_u16() in [0, MAX_DUTY_CYCLE] else 0
-                )
+                shop_led.toggle()
             
             if data.get("ceiling-brightness", False):
-                ceiling.duty_u16(MAX_DUTY_CYCLE // 100 * data["ceiling-brightness"])
+                ceiling_led.set(data["ceiling-brightness"])
             if data.get("shop-brightness", False):
-                shop.duty_u16(MAX_DUTY_CYCLE // 100 * data["shop-brightness"])
-            
+                shop_led.set(data["shop-brightness"])
+
             response = "hello"
 
         else:
@@ -90,9 +71,17 @@ def web_server():
         conn.sendall(response)
         conn.close()
 
+        sleep(0.01)
 
-if __name__ == "__main__":    
-    web_server()
+
+if __name__ == "__main__":
+    from utils.led import Led
+    shop_led = Led(33)
+    ceiling_led = Led(26)
+
+    station = connect_to_wifi()
+    web_server(station, ceiling_led, shop_led)
+
 
 
 
