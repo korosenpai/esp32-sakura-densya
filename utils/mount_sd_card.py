@@ -1,6 +1,6 @@
 # https://www.youtube.com/watch?v=qL2g5YIVick&ab_channel=TechToTinker
 
-def mount_sd(folder = "/sd"):
+def mount_sd_card(folder = "/sd"):
     import os
     from machine import Pin, SoftSPI
     from sdcard import SDCard
@@ -31,7 +31,7 @@ def mount_sd(folder = "/sd"):
     print(f"mounted sd card in '{folder}'")
 
 if __name__ == "__main__":
-    mount_sd()
+    mount_sd_card()
     
     from os import listdir
     print(listdir("/sd"))
