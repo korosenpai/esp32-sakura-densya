@@ -15,7 +15,7 @@ class Led:
 
     def wait(self):
         # execute at end of every command to wait that leds update
-        sleep(0.1)
+        sleep(0.01)
     
     def set(self, percent: int):
         if not 0 <= percent <= 100:
@@ -40,4 +40,9 @@ class Led:
             abs(self.pin.duty_u16() - self.MAX_DUTY_CYCLE) if self.pin.duty_u16() in [0, self.MAX_DUTY_CYCLE] else 0
         )
         self.wait()
+
+
+
+shop_led = Led(33)
+ceiling_led = Led(26)
 
